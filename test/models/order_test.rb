@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
   test 'it should generate a GUID when saving' do
-    order = orders(:valid_order)
+    order = orders(:valid_order).dup
     order.guid = nil
     order.save
     assert order.guid.present?, 'GUID was not generated when saving'
