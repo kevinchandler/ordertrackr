@@ -19,14 +19,14 @@ ActiveRecord::Schema.define(version: 20161223050142) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
-    t.string   "address"
+    t.string   "street_address"
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
-    t.string   "latitude"
-    t.string   "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "orders", force: :cascade do |t|

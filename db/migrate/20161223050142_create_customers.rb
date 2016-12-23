@@ -4,12 +4,12 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
       t.string :first_name
       t.string :last_name
       t.string :phone, length: 10
-      t.string :address
+      t.string :street_address
       t.string :city
       t.string :state
       t.string :zipcode
-      t.string :latitude
-      t.string :longitude
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end
