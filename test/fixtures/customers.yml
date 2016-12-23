@@ -1,0 +1,10 @@
+valid_customer:
+  first_name: Bob
+  last_name: Dole
+  phone: 1234567890
+  address: 123 Fake St
+  city: Los Angeles
+  state: CA
+  zipcode: 90069
+  latitude: 34.0522
+  longitude: -118.2437
