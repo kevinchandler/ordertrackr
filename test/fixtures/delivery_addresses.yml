@@ -1,5 +1,4 @@
 valid_delivery_address:
-  order_id: 1
   street_address: 123 Fake St
   city: Los Angeles
   state: CA

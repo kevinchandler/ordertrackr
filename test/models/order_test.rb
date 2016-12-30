@@ -4,20 +4,18 @@ class OrderTest < ActiveSupport::TestCase
   test 'it should generate a GUID when saving' do
     order = orders(:valid_order).dup
     order.guid = nil
+    order.delivery_address = delivery_addresses :valid_delivery_address
     order.save
     assert order.guid.present?, 'GUID was not generated when saving'
   end
 
-  test 'it should be able to have many delivery_addresses' do
+  test 'it should belong to a delivery_addresses' do
     order = orders :valid_order
-    2.times do
-      da = delivery_addresses(:valid_delivery_address).dup
-      da.order_id = order.id
-      da.save
-    end
-
-    assert_equal 2, order.delivery_addresses.size, 'Order does not have'\
-                                                   'multiple delivery_addresses'
+    delivery_address = delivery_addresses :valid_delivery_address
+    order.delivery_address = delivery_address
+    assert_equal delivery_address, order.delivery_address, 'Order does not '\
+                                                   'belong to the correct '\
+                                                   'delivery_address'
   end
 
   test 'it should require a customer_id' do

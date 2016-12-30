@@ -1,5 +1,4 @@
 class DeliveryAddress < ApplicationRecord
-  belongs_to :order
   validates :street_address, :zipcode, presence: true
 
   geocoded_by :address
