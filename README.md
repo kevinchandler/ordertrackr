@@ -1,24 +1,12 @@
-# README
+# ENV
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+DB_NAME=
+DB_USER=
+DB_PORT=
+DB_PASSWORD=
+DB_HOST=
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Production Only
+SECRET_KEY_BASE=
+```
