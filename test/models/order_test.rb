@@ -24,10 +24,11 @@ class OrderTest < ActiveSupport::TestCase
     assert_not order.save, 'customer_id not required when it should be'
   end
 
-  test 'it should require a user_id' do
+  test 'it should require a agent_id' do
     order = orders :complete
-    order.user_id = nil
-    assert_not order.save, 'user_id not required when it should be'
+    order.agent_id = nil
+    order.send :generate_guid
+    assert_not order.save, 'agent_id not required when it should be'
   end
 
   test '#status' do
