@@ -74,9 +74,9 @@ ActiveRecord::Schema.define(version: 20170101063726) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "guid"
-    t.integer  "agent_id",                            null: false
+    t.integer  "agent_id"
     t.integer  "driver_id"
-    t.integer  "customer_id",                         null: false
+    t.integer  "customer_id"
     t.boolean  "complete",            default: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
