@@ -11,11 +11,11 @@ class OrderTest < ActiveSupport::TestCase
 
   test 'it should belong to a delivery_addresses' do
     order = orders :valid_order
-    delivery_address = delivery_addresses :valid_delivery_address
-    order.delivery_address = delivery_address
-    assert_equal delivery_address, order.delivery_address, 'Order does not '\
-                                                   'belong to the correct '\
-                                                   'delivery_address'
+    assert_equal(
+      order.delivery_address_id,
+      delivery_addresses(:valid_delivery_address).id,
+      'Order does not belong to the correct delivery_address'
+    )
   end
 
   test 'it should require a customer_id' do
