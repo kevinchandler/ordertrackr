@@ -2,7 +2,7 @@ class DeliveryAddress < ApplicationRecord
   validates :street_address, :zipcode, presence: true
 
   geocoded_by :address
-  after_validation :geocode
+  after_validation :geocode, if: -> { latitude.nil? && longitude.nil? }
 
   private
 
