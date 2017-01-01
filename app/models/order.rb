@@ -4,6 +4,10 @@ class Order < ApplicationRecord
   validates :guid, uniqueness: true
   belongs_to :delivery_address
 
+  def status
+    complete ? 'complete' : 'incomplete'
+  end
+
   private
 
   def generate_guid

@@ -1,7 +1,11 @@
-valid_order:
+complete: &complete
   user_id: 1
   driver_id: 1
   customer_id: 1
   delivery_address_id: <%= DeliveryAddress.first.id %>
   guid: 4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8
+  complete: true
+
+incomplete:
+  <<: *complete
   complete: false
