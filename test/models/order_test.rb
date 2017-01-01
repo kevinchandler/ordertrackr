@@ -9,8 +9,19 @@ class OrderTest < ActiveSupport::TestCase
     assert order.guid.present?, 'GUID was not generated when saving'
   end
 
+  test 'it should require a unique GUID' do
+    order = orders :complete
+    exception = assert_raises(ActiveRecord::RecordInvalid) { order.save! }
+    assert_equal(
+      exception.message,
+      'Validation failed: Guid has already been taken',
+      'Duplicate GUID allowed. Should be unique'
+    )
+  end
+
   test 'it should belong to a delivery_addresses' do
     order = orders :complete
+    order.delivery_address = delivery_addresses :los_angeles
     assert_equal(
       order.delivery_address_id,
       delivery_addresses(:los_angeles).id,
