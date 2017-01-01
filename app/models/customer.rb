@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-  before_save :standardize_phone
+  before_save :standardize_phone, if: -> { phone_changed? }
 
   private
 
