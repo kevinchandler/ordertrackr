@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'devise'
 gem 'geocoder'
 gem 'pg'
 gem 'puma'
