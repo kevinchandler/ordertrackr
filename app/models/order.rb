@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   before_create :generate_guid
-  validates :customer_id, :user_id, presence: true
+  validates :customer_id, :agent_id, presence: true
   validates :guid, uniqueness: true
   belongs_to :delivery_address
 
