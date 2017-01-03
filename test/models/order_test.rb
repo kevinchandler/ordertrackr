@@ -56,4 +56,19 @@ class OrderTest < ActiveSupport::TestCase
       'Complete order not returning complete'
     )
   end
+
+  test '#in_progress' do
+    incomplete_order = orders :incomplete
+    complete_order = orders :complete
+    assert_equal(
+      incomplete_order.in_progress,
+      true,
+      'in_progress order not returning true'
+    )
+    assert_equal(
+      complete_order.in_progress,
+      false,
+      'in_progress order not returning false'
+    )
+  end
 end

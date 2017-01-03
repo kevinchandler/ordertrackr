@@ -7,6 +7,10 @@ class Order < ApplicationRecord
   scope :complete, -> { where complete: true }
   scope :incomplete, -> { where complete: false }
 
+  def in_progress
+    status == 'incomplete' ? true : false
+  end
+
   def status
     complete ? 'complete' : 'incomplete'
   end
