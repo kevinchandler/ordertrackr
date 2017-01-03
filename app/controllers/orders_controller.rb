@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_filter :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
@@ -62,13 +62,15 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find_by guid: params[:guid]
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.fetch(:order, {})
-    end
+  def set_order
+    @order = Order.where('guid = :identifier OR id = :identifier',
+                         identifier: params[:identifier]).first
+    raise ActionController::RoutingError.new('Not Found') unless @order
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def order_params
+    params.fetch(:order, {})
+  end
 end
