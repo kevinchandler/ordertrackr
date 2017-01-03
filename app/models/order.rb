@@ -4,6 +4,9 @@ class Order < ApplicationRecord
   validates :guid, uniqueness: true
   belongs_to :delivery_address
 
+  scope :complete, -> { where complete: true }
+  scope :incomplete, -> { where complete: false }
+
   def status
     complete ? 'complete' : 'incomplete'
   end
