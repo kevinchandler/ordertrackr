@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'pages#home'
   devise_for :drivers
   devise_for :agents
-  root to: 'pages#home'
+  resources :orders, param: :guid
 end
