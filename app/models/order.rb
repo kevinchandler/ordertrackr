@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   end
 
   def in_progress
-    status == 'incomplete' ? true : false
+    complete ? false : true
   end
 
   def status
