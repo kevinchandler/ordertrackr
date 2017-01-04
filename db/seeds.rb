@@ -4,12 +4,9 @@ end
 
 require 'faker'
 
-Agent.delete_all
-Driver.delete_all
-Customer.delete_all
-Order.delete_all
-DeliveryAddress.delete_all
-Business.delete_all
+[Agent, Driver, Customer, Order, DeliveryAddress, Business].each do |model|
+  model.delete_all
+end
 
 business = Business.create!(
   name: 'Bobs Burgers',
