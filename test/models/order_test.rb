@@ -10,8 +10,12 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test 'it should require a unique GUID' do
-    order = orders :complete
-    exception = assert_raises(ActiveRecord::RecordInvalid) { order.save! }
+    order1 = orders :complete
+    order2 = orders :incomplete
+    order1.guid = order1.send :generate_guid
+    order1.save
+    order2.guid = order1.guid
+    exception = assert_raises(ActiveRecord::RecordInvalid) { order2.save! }
     assert_equal(
       exception.message,
       'Validation failed: Guid has already been taken',
