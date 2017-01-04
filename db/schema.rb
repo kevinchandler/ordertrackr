@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104014402) do
+ActiveRecord::Schema.define(version: 20170104014932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20170104014402) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_agents_on_business_id", using: :btree
     t.index ["email"], name: "index_agents_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_agents_on_reset_password_token", unique: true, using: :btree
   end
@@ -49,8 +51,10 @@ ActiveRecord::Schema.define(version: 20170104014402) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_customers_on_business_id", using: :btree
   end
 
   create_table "delivery_addresses", force: :cascade do |t|
@@ -79,6 +83,8 @@ ActiveRecord::Schema.define(version: 20170104014402) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_drivers_on_business_id", using: :btree
     t.index ["email"], name: "index_drivers_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_drivers_on_reset_password_token", unique: true, using: :btree
   end
@@ -93,7 +99,9 @@ ActiveRecord::Schema.define(version: 20170104014402) do
     t.datetime "updated_at",                          null: false
     t.integer  "delivery_address_id"
     t.datetime "completed_at"
+    t.integer  "business_id"
     t.index ["agent_id"], name: "index_orders_on_agent_id", using: :btree
+    t.index ["business_id"], name: "index_orders_on_business_id", using: :btree
     t.index ["complete"], name: "index_orders_on_complete", using: :btree
     t.index ["customer_id"], name: "index_orders_on_customer_id", using: :btree
     t.index ["delivery_address_id"], name: "index_orders_on_delivery_address_id", using: :btree
@@ -101,4 +109,8 @@ ActiveRecord::Schema.define(version: 20170104014402) do
     t.index ["guid"], name: "index_orders_on_guid", using: :btree
   end
 
+  add_foreign_key "agents", "businesses"
+  add_foreign_key "customers", "businesses"
+  add_foreign_key "drivers", "businesses"
+  add_foreign_key "orders", "businesses"
 end

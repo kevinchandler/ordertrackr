@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  belongs_to :business
   before_save :standardize_phone, if: -> { phone_changed? }
 
   private
