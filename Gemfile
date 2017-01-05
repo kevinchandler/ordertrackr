@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
+gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'geocoder'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'jquery-rails'
 gem 'pg'
 gem 'puma'
