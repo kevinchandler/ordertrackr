@@ -57,3 +57,4 @@ order = Order.create!(
   complete: false,
   business: business
 )
+Agent.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
