@@ -20,6 +20,16 @@ class Order < ApplicationRecord
     ) || nil
   end
 
+  def current_latitude
+    return nil unless current_location
+    current_location.split(',')[0].to_s
+  end
+
+  def current_longitude
+    return nil unless current_location
+    current_location.split(',')[1].to_s
+  end
+
   def in_progress
     complete ? false : true
   end

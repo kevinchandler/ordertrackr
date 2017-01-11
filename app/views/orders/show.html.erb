@@ -10,11 +10,23 @@
       lat: <%= @order.delivery_address.latitude %>,
       lng: <%= @order.delivery_address.longitude %>
     };
+
+    var orderCurrentLocation = {
+      lat: <%= @order.current_latitude %>,
+      lng: <%= @order.current_longitude %>
+    }
+
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
-      center: deliveryAddress
+      center: orderCurrentLocation
     });
-    var marker = new google.maps.Marker({
+
+    var orderCurrentLocationMarker = new google.maps.Marker({
+      position: orderCurrentLocation,
+      map: map
+    });
+
+    var deliveryAddressMarker = new google.maps.Marker({
       position: deliveryAddress,
       map: map
     });
