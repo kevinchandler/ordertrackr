@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   before_create :generate_guid
-  validates :customer_id, :agent_id, presence: true
+  validates :customer_id, :agent_id, :business_id, presence: true
   validates :guid, uniqueness: true, if: -> { guid_changed? }
   belongs_to :business
   belongs_to :delivery_address
@@ -12,6 +12,12 @@ class Order < ApplicationRecord
   def complete_order
     self.completed_at = Time.zone.now
     save!
+  end
+
+  def current_location
+    (in_progress &&
+      (driver && driver.coordinates || business.coordinates)
+    ) || nil
   end
 
   def in_progress

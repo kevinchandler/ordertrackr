@@ -1,11 +1,16 @@
 complete: &complete
-  agent_id: 1
-  driver_id: 1
-  customer_id: 1
-  delivery_address_id: 1
+  agent_id: <%= Agent.first.try(:id) || 1 %>
+  driver_id: <%= Driver.first.try(:id) || 1 %>
+  customer_id: <%= Customer.first.try(:id) || 1 %>
+  delivery_address_id: <%= DeliveryAddress.first.try(:id) || 1 %>
+  business_id: <%= Business.first.try(:id) || 1 %>
   guid: <%= Digest::SHA2.hexdigest [Time.zone.now, rand].join %>
   complete: true
 
-incomplete:
+incomplete: &incomplete
   <<: *complete
   complete: false
+
+without_driver: &without_driver
+  <<: *incomplete
+  driver_id: nil

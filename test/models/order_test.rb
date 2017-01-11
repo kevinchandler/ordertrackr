@@ -75,4 +75,31 @@ class OrderTest < ActiveSupport::TestCase
       'in_progress order not returning false'
     )
   end
+
+  test '#current_location' do
+    # without a driver
+    order = orders :without_driver
+    order.business ||= Business.first
+    assert_equal(
+      order.current_location,
+      order.business.coordinates,
+      'Should return business coordinates due to no driver currently assigned'
+    )
+
+    # with a driver
+    order2 = orders :incomplete
+    order2.driver ||= Driver.first
+    assert_equal(
+      order2.current_location,
+      order2.driver.coordinates,
+      'Should return driver coordinates when driver is assigned'
+    )
+
+    # completed order
+    complete_order = orders :complete
+    assert_nil(
+      complete_order.current_location,
+      'Complete orders should not return a location'
+    )
+  end
 end

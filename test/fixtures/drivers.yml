@@ -1,3 +1,5 @@
 default: &default
   first_name: Faker::Name.first_name
   last_name: Faker::Name.last_name
+  latitude: 33.6839
+  longitude: -117.7947
