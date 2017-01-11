@@ -16,13 +16,15 @@ business = Business.create!(
   city: 'Santa Monica',
   state: 'CA',
   zipcode: '90401'
+  # rely on geocoding for coords
 )
 
 agent = Agent.create!(
   first_name: Faker::Name.first_name,
   last_name: Faker::Name.last_name,
   email: Faker::Internet.email,
-  password: Faker::Internet.password,
+  password: 'password',
+  password_confirmation: 'password',
   business: business
 )
 
@@ -47,16 +49,13 @@ delivery_address = DeliveryAddress.create!(
   state: 'CA',
   zipcode: '90401',
   # rely on geocoding for coords
-  latitude: nil,
-  longitude: nil
 )
 
 order = Order.create!(
-  agent_id: 1,
-  driver_id: 1,
+  agent_id: agent.id,
+  driver_id: driver.id,
   customer_id: customer.id,
   delivery_address_id: delivery_address.id,
   complete: false,
   business: business
 )
-Agent.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
