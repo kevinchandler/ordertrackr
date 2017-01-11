@@ -33,7 +33,9 @@ driver = Driver.create!(
   last_name: Faker::Name.last_name,
   email: Faker::Internet.email,
   password: Faker::Internet.password,
-  business: business
+  business: business,
+  latitude: 33.6839,
+  longitude: -117.7947
 )
 
 customer = Customer.create!(
