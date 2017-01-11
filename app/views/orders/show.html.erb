@@ -6,29 +6,43 @@
 </style>
 <script>
   function initMap() {
-    var deliveryAddress = {
+    let deliveryAddress = {
       lat: <%= @order.delivery_address.latitude %>,
       lng: <%= @order.delivery_address.longitude %>
     };
 
-    var orderCurrentLocation = {
+    let orderCurrentLocation = {
       lat: <%= @order.current_latitude %>,
       lng: <%= @order.current_longitude %>
     }
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    let drivingRoute = [
+      { lat: orderCurrentLocation.lat, lng: orderCurrentLocation.lng },
+      { lat: deliveryAddress.lat, lng: deliveryAddress.lng },
+    ];
+
+    let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       center: orderCurrentLocation
     });
 
-    var orderCurrentLocationMarker = new google.maps.Marker({
+    let orderCurrentLocationMarker = new google.maps.Marker({
       position: orderCurrentLocation,
       map: map
     });
 
-    var deliveryAddressMarker = new google.maps.Marker({
+    let deliveryAddressMarker = new google.maps.Marker({
       position: deliveryAddress,
       map: map
+    });
+
+    new google.maps.Polyline({
+      map: map,
+      path: drivingRoute,
+      geodesic: true,
+      strokeColor: '#000000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
     });
   }
 </script>
