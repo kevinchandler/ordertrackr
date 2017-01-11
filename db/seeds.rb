@@ -3,6 +3,7 @@ if Rails.env.production?
 end
 
 require 'faker'
+I18n.reload!
 
 [Agent, Driver, Customer, Order, DeliveryAddress, Business].each do |model|
   model.delete_all
@@ -41,12 +42,13 @@ customer = Customer.create!(
 )
 
 delivery_address = DeliveryAddress.create!(
-  street_address: Faker::Address.street_address,
-  city: Faker::Address.city,
-  state: Faker::Address.state,
-  zipcode: Faker::Address.zip,
-  latitude: Faker::Address.latitude,
-  longitude: Faker::Address.longitude
+  street_address: '829 Broadway',
+  city: 'Santa Monica',
+  state: 'CA',
+  zipcode: '90401',
+  # rely on geocoding for coords
+  latitude: nil,
+  longitude: nil
 )
 
 order = Order.create!(
