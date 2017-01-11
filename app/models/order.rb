@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   validates :guid, uniqueness: true, if: -> { guid_changed? }
   belongs_to :business
   belongs_to :delivery_address
+  belongs_to :driver
 
   scope :complete, -> { where complete: true }
   scope :incomplete, -> { where complete: false }
