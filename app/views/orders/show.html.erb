@@ -5,6 +5,16 @@
    }
 </style>
 <script>
+  updateDeliveryWindow = (response) => {
+    let remainingDuration = 0;
+    response.routes.forEach(function(route) {
+      route.legs.forEach(function(leg) {
+        remainingDuration += ( leg.duration.value / 60 )
+      })
+    })
+    timeRemainingEl = document.getElementById('delivery-window')
+    timeRemainingEl.textContent = Math.round(remainingDuration) + ' mins away'
+  }
 
   // Initialize orders map with polyline driving route
   initMap = () => {
@@ -23,6 +33,7 @@
         // TODO: Handle non-OK status in UI - https://developers.google.com/maps/documentation/javascript/directions
         if (status == 'OK') {
           directionsDisplay.setDirections(response);
+          updateDeliveryWindow(response);
         }
       });
     }
@@ -53,6 +64,9 @@
 <p id="notice"><%= notice %></p>
 
 <% if @order.in_progress %>
+  <div>
+    Order status: <span id="delivery-window"></span>
+  </div>
   <div id="map"></div>
 <% else %>
   <div id='order-complete'>
