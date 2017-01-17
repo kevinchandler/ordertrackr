@@ -5,45 +5,45 @@
    }
 </style>
 <script>
-  function initMap() {
-    let deliveryAddress = {
-      lat: <%= @order.delivery_address.latitude %>,
-      lng: <%= @order.delivery_address.longitude %>
-    };
 
-    let orderCurrentLocation = {
-      lat: <%= @order.current_latitude %>,
-      lng: <%= @order.current_longitude %>
+  // Initialize orders map with polyline driving route
+  initMap = () => {
+    calcRoute = () => {
+      let request = {
+          origin: orderCurrentLocation,
+          destination: orderDeliveryAddress,
+          travelMode: google.maps.TravelMode['DRIVING'],
+          unitSystem: google.maps.UnitSystem.IMPERIAL,
+          drivingOptions: {
+            departureTime: new Date(Date.now()),
+            trafficModel: 'bestguess'
+          }
+      };
+      directionsService.route(request, function(response, status) {
+        // TODO: Handle non-OK status in UI - https://developers.google.com/maps/documentation/javascript/directions
+        if (status == 'OK') {
+          directionsDisplay.setDirections(response);
+        }
+      });
     }
 
-    let drivingRoute = [
-      { lat: orderCurrentLocation.lat, lng: orderCurrentLocation.lng },
-      { lat: deliveryAddress.lat, lng: deliveryAddress.lng },
-    ];
-
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: orderCurrentLocation
-    });
-
-    let orderCurrentLocationMarker = new google.maps.Marker({
-      position: orderCurrentLocation,
-      map: map
-    });
-
-    let deliveryAddressMarker = new google.maps.Marker({
-      position: deliveryAddress,
-      map: map
-    });
-
-    new google.maps.Polyline({
-      map: map,
-      path: drivingRoute,
-      geodesic: true,
-      strokeColor: '#000000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
+    let directionsService = new google.maps.DirectionsService();
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    let orderDeliveryAddress = new google.maps.LatLng(
+      <%= @order.delivery_address.latitude %>,
+      <%= @order.delivery_address.longitude %>
+    );
+    let orderCurrentLocation = new google.maps.LatLng(
+      <%= @order.current_latitude %>,
+      <%= @order.current_longitude %>
+    );
+    var mapOptions = {
+      zoom: 14,
+      center: orderDeliveryAddress
+    }
+    let map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    directionsDisplay.setMap(map);
+    calcRoute();
   }
 </script>
   <script async defer
