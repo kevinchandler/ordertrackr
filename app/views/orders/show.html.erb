@@ -7,13 +7,17 @@
 <script>
   updateDeliveryWindow = (response) => {
     let remainingDuration = 0;
+    let remainingDistance = 0;
     response.routes.forEach(function(route) {
       route.legs.forEach(function(leg) {
+        remainingDistance += ( leg.distance.value * 0.00062137) // convert meters to miles
         remainingDuration += ( leg.duration.value / 60 )
       })
     })
-    timeRemainingEl = document.getElementById('delivery-window')
-    timeRemainingEl.textContent = Math.round(remainingDuration) + ' mins away'
+
+    deliveryInfoEl = document.getElementById('delivery-info')
+    deliveryInfoEl.textContent = Math.round(remainingDuration) +
+      " mins away\n" + remainingDistance.toFixed(2) + 'mi away'
   }
 
   // Initialize orders map with polyline driving route
@@ -65,7 +69,7 @@
 
 <% if @order.in_progress %>
   <div>
-    Order status: <span id="delivery-window"></span>
+    Order status: <span id="delivery-info"></span>
   </div>
   <div id="map"></div>
 <% else %>
